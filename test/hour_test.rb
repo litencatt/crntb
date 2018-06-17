@@ -8,7 +8,7 @@ class HourTest < Minitest::Test
 
   def test_parse
     result = Crntb::Hour.new('*').parse
-    assert_equal result, "every hour "
+    assert_equal result, "every hour"
 
     result = Crntb::Hour.new('1,2,3').parse
     assert_equal result, "at 1, 2, 3"

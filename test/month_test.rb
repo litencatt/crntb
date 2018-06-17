@@ -8,7 +8,7 @@ class DayOfMonthTest < Minitest::Test
 
   def test_parse
     result = Crntb::Month.new('*').parse
-    assert_equal result, "every day "
+    assert_equal result, "every day"
 
     result = Crntb::Month.new('1,2,3').parse
     assert_equal result, "In 1, 2, 3"

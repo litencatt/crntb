@@ -118,7 +118,7 @@ module Crntb
     def parse
       case field
       when '*'
-        "every hour "
+        "every hour"
       else
         "at #{super}"
       end
@@ -152,7 +152,7 @@ module Crntb
     def parse
       case field
       when '*'
-        "every day "
+        "every day"
       else
         "In #{super}"
       end

@@ -28,7 +28,7 @@ module Crntb
         hour,
         minute,
         "\n  exec #{@command}",
-      ].join
+      ].join(" ")
     end
 
     def manipuate(line)
