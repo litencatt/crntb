@@ -53,6 +53,7 @@ class Qp
         res += collection.to_s
         res += ", "
       end
+      result.slice!(result.size - 2, 2)
       result
     end
 
