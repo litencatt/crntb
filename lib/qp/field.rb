@@ -31,7 +31,7 @@ class Qp
 
         # /が使われてればstep[1]には分割数が来るはず, なければ1
         # 次のrange処理で使う
-        if step[1] && step[1].match(/^[0-9]$/)
+        if step[1] && step[1].match(/^[0-9]+$/)
           step_size = step[1].to_i
         else
           step_size = 1
