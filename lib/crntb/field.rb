@@ -54,14 +54,6 @@ module Crntb
       end
     end
 
-    def step_size(step)
-      if step[1] && step[1].match(/^[0-9]+$/)
-        step[1].to_i
-      else
-        1
-      end
-    end
-
     def add_collections(step, range)
       if range.length > 1
         s = range[0].to_i
@@ -69,6 +61,14 @@ module Crntb
         s.step(e, step_size(step)) { |r| collections << r }
       else
         collections << range[0].to_i
+      end
+    end
+
+    def step_size(step)
+      if step[1] && step[1].match(/^[0-9]+$/)
+        step[1].to_i
+      else
+        1
       end
     end
 
