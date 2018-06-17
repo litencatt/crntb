@@ -2,7 +2,7 @@ module Crntb
   class File
     def self.parse(file)
       ::File.readlines(file).each do |line|
-        Crntb::Line.new(line).parse
+        puts Crntb::Line.new(line).parse
       end
     end
   end
