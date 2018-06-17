@@ -1,6 +1,6 @@
 module Crntb
   class Field
-    attr_reader :field
+    attr_reader :field, :collections
 
     class << self
       def parse(field)
@@ -10,6 +10,7 @@ module Crntb
 
     def initialize(field)
       @field = field
+      @collections = []
     end
 
     def parse
@@ -19,14 +20,13 @@ module Crntb
     end
 
     def interpretation
-      collections = []
       step_collections.each do |step_collection|
         step  = get_step(step_collection)
         range = get_range(step[0])
-        add_collections(step, range, collections)
+        add_collections(step, range)
       end
       collections.uniq.sort
-      shift(collections)
+      shift_collections
 
       # 曜日や月は文字列にして追加
       # そうでなければ数字を追加
@@ -62,7 +62,7 @@ module Crntb
       end
     end
 
-    def add_collections(step, range, collections)
+    def add_collections(step, range)
       if range.length > 1
         s = range[0].to_i
         e = range[1].to_i
@@ -70,10 +70,9 @@ module Crntb
       else
         collections << range[0].to_i
       end
-      collections
     end
 
-    def shift(collections)
+    def shift_collections
       collections
     end
 
@@ -144,7 +143,7 @@ module Crntb
       0..31
     end
 
-    def shift(collections)
+    def shift_collections
       collections.delete(0) if collections.include?(0)
     end
   end
@@ -163,7 +162,7 @@ module Crntb
       0..12
     end
 
-    def shift(collections)
+    def shift_collections
       collections.delete(0) if collections.include?(0)
     end
   end
@@ -182,7 +181,7 @@ module Crntb
       0..7
     end
 
-    def shift(collections)
+    def shift_collections
       collections.delete(0) if collections.include?(0)
     end
   end
