@@ -182,7 +182,11 @@ module Crntb
     end
 
     def field_range
-      1..12
+      0..12
+    end
+
+    def shift(collections)
+      collections.delete(0) if collections.include?(0)
     end
   end
 
