@@ -1,5 +1,7 @@
 class Qp
   class Field
+    attr_reader :field
+
     class << self
       def parse(field)
         self.new(field).parse
@@ -11,11 +13,80 @@ class Qp
     end
 
     def parse
-      field.digits
-      field.have_asterisk?
-      field.have_hyphen?
-      field.have_slash?
-      field.have_comma?
+      #return nil unless valid?
+      return '*' if first_to_last?
+      interpretation
+    end
+
+    # 先頭文字列を処理
+    #   */...
+    #   n...
+    #   それ以降はカンマ区切りでsplitして-はloop処理しての繰り返し
+    def interpretation
+      step_collections = field.split(',')
+      collections = []
+      step_collections.each do |step_collection|
+        # /でsplitした結果
+        step = get_step(step_collection)
+
+        # /が使われてればstep[1]には分割数が来るはず, なければ1
+        # 次のrange処理で使う
+        if step[1] && step[1].match(/^[0-9]$/)
+          step_size = step[1].to_i
+        else
+          step_size = 1
+        end
+
+        # step[0] : *   => min..max
+        # step[0] : n-m => n..m
+        range = get_range(step[0])
+        if range.length > 1
+          s = range[0].to_i
+          e = range[1].to_i
+          s.step(e, step_size) { |r| collections << r }
+        end
+      end
+      collections.uniq.sort
+      # 曜日や月は文字列にして追加
+      # そうでなければ数字を追加
+      result = collections.inject '' do |res, collection|
+        res += collection.to_s
+        res += ", "
+      end
+      result
+    end
+
+    def get_collection
+
+    end
+
+    # e.g
+    #   "*/1"     => ["*", "1"]
+    #   "*/1,2-4" => ["*", "1,2-4"]
+    def get_range(value)
+      if value == '*'
+        [field_range.first, field_range.last]
+      else
+        value.split('-')
+      end
+    end
+
+    def get_step(value)
+      value.split('/')
+    end
+
+    def expand_range(collections)
+      result = []
+      collections.each do |collection|
+        if collection.include?('-')
+          min, max = collection.split('-', 2)
+          for i in min..max do
+            result << i
+          end
+        else
+          result << collection
+        end
+      end
     end
 
     def first_to_last?
@@ -48,58 +119,83 @@ class Qp
   end
 
   class Minute < Field
+    def field_range
+      0..59
+    end
+
     def parse
-      super
-      case @field
+      case field
       when '*'
         "every minute"
       else
-        @field.to_s
+        "when minute equals #{super}"
       end
-    end
-
-    def validate
-      0..59
     end
   end
 
   class Hour < Field
-    def self.parse(field)
+    def parse
+      case field
+      when '*'
+        "every hour "
+      else
+        "at #{super}"
+      end
     end
 
-    def validate
+    def field_range
       0..23
     end
   end
 
   class DayOfMonth < Field
-    def self.parse(field)
+    def parse
+      case field
+      when '*'
+        ""
+      else
+        "on the #{super}"
+      end
+
     end
 
-    def validate
+    def field_range
       1..31
     end
   end
 
   class Month < Field
-    def self.parse(field)
+    def parse
+      case field
+      when '*'
+        "every day "
+      else
+        "In #{super}"
+      end
+
     end
 
-    def validate
+    def field_range
       1..12
     end
   end
 
   class DayOfWeek < Field
-    def self.parse(field)
+    def parse
+      case field
+      when '*'
+        ""
+      else
+        "and on #{super}"
+      end
     end
 
-    def validate
+    def field_range
       0..7
     end
   end
   class Command < Field
-    def self.parse(field)
+    def parse
     end
   end
 end
