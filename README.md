@@ -2,7 +2,7 @@ WIP project now.
 
 ### Usage
 Passing crontab strings
-```
+```rb
 Crntb.pase_line('* * * * * test.sh')
 => "every day   every hour every minute \n  exec test.sh"
 
@@ -11,7 +11,7 @@ Crntb.parse_line('*/10 * * * * test.sh')
 ```
 
 Passing text file
-```
+```rb
 Crntb.parse('./sample.cron')
 every day   every hour every minute
   exec sample.sh
