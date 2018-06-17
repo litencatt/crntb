@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'qp'
+require 'crntb'
 require 'pry'
 require 'pry-byebug'
 Pry.start

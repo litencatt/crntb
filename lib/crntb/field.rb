@@ -1,4 +1,4 @@
-class Qp
+module Crntb
   class Field
     attr_reader :field
 

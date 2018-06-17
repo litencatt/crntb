@@ -1,8 +1,8 @@
-class Qp
+module Crntb
   class File
     def self.parse(file)
       ::File.readlines(file).each do |line|
-        Qp::Line.new(line).parse
+        Crntb::Line.new(line).parse
       end
     end
   end
