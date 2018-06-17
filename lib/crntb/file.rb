@@ -14,16 +14,16 @@ module Crntb
         fields = manipuate(line)
         @minute       = Minute.parse(fields[0])
         @hour         = Hour.parse(fields[1])
-        @day_of_month = DayOfWeek.parse(fields[2])
+        @day_of_month = DayOfMonth.parse(fields[2])
         @month        = Month.parse(fields[3])
-        @day_of_week  = DayOfMonth.parse(fields[4])
+        @day_of_week  = DayOfWeek.parse(fields[4])
         @command      = fields[5].chomp
     end
 
     def parse
       [
-        day_of_week,
         month,
+        day_of_week,
         day_of_month,
         hour,
         minute,
