@@ -100,10 +100,6 @@ module Crntb
   end
 
   class Minute < Field
-    def field_range
-      0..59
-    end
-
     def parse
       case field
       when '*'
@@ -111,6 +107,10 @@ module Crntb
       else
         "when minute equals #{super}"
       end
+    end
+
+    def field_range
+      0..59
     end
   end
 
