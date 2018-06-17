@@ -31,11 +31,15 @@ module Crntb
       # 曜日や月は文字列にして追加
       # そうでなければ数字を追加
       result = collections.inject '' do |res, collection|
-        res += collection.to_s
+        res += translate_of(collection)
         res += ", "
       end
       result.slice!(result.size - 2, 2)
       result
+    end
+
+    def translate_of(collection)
+      collection.to_s
     end
 
     def step_collections
@@ -130,6 +134,7 @@ module Crntb
   end
 
   class DayOfMonth < Field
+
     def parse
       case field
       when '*'
@@ -149,6 +154,38 @@ module Crntb
   end
 
   class Month < Field
+    LOOKUP_NAMES = %w(
+      Voidember
+      January
+      February
+      March
+      April
+      May
+      June
+      July
+      August
+      September
+      October
+      November
+      December
+    )
+
+    MAP_NAMES = %w(
+      voi
+      jan
+      feb
+      mar
+      apr
+      may
+      jun
+      jul
+      aug
+      sep
+      oct
+      nov
+      dec
+    )
+
     def parse
       case field
       when '*'
@@ -165,9 +202,35 @@ module Crntb
     def shift_collections
       collections.delete(0) if collections.include?(0)
     end
+
+    def translate_of(collection)
+      LOOKUP_NAMES[collection]
+    end
   end
 
   class DayOfWeek < Field
+    LOOKUP_NAMES = %w(
+      Voidday
+      Mondays
+      Tuesdays
+      Wednesdays
+      Thursdays
+      Fridays
+      Saturdays
+      Sundays
+    )
+
+    MAP_NAMES = %w(
+      voi
+      mon
+      tue
+      wed
+      thu
+      fri
+      sat
+      sun
+    )
+
     def parse
       case field
       when '*'
@@ -183,6 +246,10 @@ module Crntb
 
     def shift_collections
       collections.delete(0) if collections.include?(0)
+    end
+
+    def translate_of(collection)
+      LOOKUP_NAMES[collection]
     end
   end
 end

@@ -11,12 +11,12 @@ class DayOfWeekTest < Minitest::Test
     assert_equal result, ""
 
     result = Crntb::DayOfWeek.new('1,2,3').parse
-    assert_equal result, "and on 1, 2, 3"
+    assert_equal result, "and on Mondays, Tuesdays, Wednesdays"
 
     result = Crntb::DayOfWeek.new('1-3').parse
-    assert_equal result, "and on 1, 2, 3"
+    assert_equal result, "and on Mondays, Tuesdays, Wednesdays"
 
     result = Crntb::DayOfWeek.new('*/3').parse
-    assert_equal result, "and on 3, 6"
+    assert_equal result, "and on Wednesdays, Saturdays"
   end
 end

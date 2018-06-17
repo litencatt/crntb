@@ -11,12 +11,12 @@ class DayOfMonthTest < Minitest::Test
     assert_equal result, "every day"
 
     result = Crntb::Month.new('1,2,3').parse
-    assert_equal result, "In 1, 2, 3"
+    assert_equal result, "In January, February, March"
 
     result = Crntb::Month.new('8-10').parse
-    assert_equal result, "In 8, 9, 10"
+    assert_equal result, "In August, September, October"
 
     result = Crntb::Month.new('*/3').parse
-    assert_equal result, "In 3, 6, 9, 12"
+    assert_equal result, "In March, June, September, December"
   end
 end
