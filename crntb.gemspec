@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.version       = Crntb::VERSION
   spec.authors       = ["litencatt"]
   spec.email         = ["ncl0709@gmail.com"]
-
   spec.summary       = %q{Crontab format parser}
   spec.description   = %q{Simple crontab parser written by ruby.}
   spec.homepage      = "https://github.com/litencatt/crntb"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
-
-  spec.add_development_dependency "minitest", "~> 0"
   spec.add_development_dependency "pry", "~> 0"
+  spec.add_development_dependency "minitest", "~> 0"
 end
