@@ -6,7 +6,7 @@ require 'crntb/version'
 Gem::Specification.new do |spec|
   spec.name          = "crntb"
   spec.version       = Crntb::VERSION
-  spec.authors       = ["litenncatt"]
+  spec.authors       = ["litencatt"]
   spec.email         = ["ncl0709@gmail.com"]
 
   spec.summary       = %q{Crontab format parser}
