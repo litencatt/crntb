@@ -18,6 +18,10 @@ module Crntb
       interpretation
     end
 
+    def shift(collections)
+      collections
+    end
+
     # 先頭文字列を処理
     #   */...
     #   n...
@@ -45,6 +49,7 @@ module Crntb
         end
       end
       collections.uniq.sort
+      shift(collections)
       # 曜日や月は文字列にして追加
       # そうでなければ数字を追加
       result = collections.inject '' do |res, collection|
@@ -155,11 +160,14 @@ module Crntb
       else
         "on the #{super}"
       end
-
     end
 
     def field_range
-      1..31
+      0..31
+    end
+
+    def shift(collections)
+      collections.delete(0) if collections.include?(0)
     end
   end
 
@@ -171,7 +179,6 @@ module Crntb
       else
         "In #{super}"
       end
-
     end
 
     def field_range
