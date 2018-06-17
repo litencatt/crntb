@@ -203,7 +203,12 @@ module Crntb
     def field_range
       0..7
     end
+
+    def shift(collections)
+      collections.delete(0) if collections.include?(0)
+    end
   end
+
   class Command < Field
     def parse
     end
