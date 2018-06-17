@@ -44,6 +44,8 @@ module Crntb
           s = range[0].to_i
           e = range[1].to_i
           s.step(e, step_size) { |r| collections << r }
+        else
+          collections << range[0].to_i
         end
       end
       collections.uniq.sort

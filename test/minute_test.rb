@@ -10,6 +10,9 @@ class MinuteTest < Minitest::Test
     result = Crntb::Minute.new('*').parse
     assert_equal result, "every minute"
 
+    result = Crntb::Minute.new('10,20,30').parse
+    assert_equal result, "when minute equals 10, 20, 30"
+
     result = Crntb::Minute.new('10-15').parse
     assert_equal result, "when minute equals 10, 11, 12, 13, 14, 15"
 
