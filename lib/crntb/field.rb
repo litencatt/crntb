@@ -26,11 +26,7 @@ module Crntb
       step_collections = field.split(',')
       collections = []
       step_collections.each do |step_collection|
-        # /でsplitした結果
         step = get_step(step_collection)
-
-        # /が使われてればstep[1]には分割数が来るはず, なければ1
-        # 次のrange処理で使う
         if step[1] && step[1].match(/^[0-9]+$/)
           step_size = step[1].to_i
         else
