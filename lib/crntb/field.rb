@@ -27,9 +27,6 @@ module Crntb
       end
       collections.uniq.sort
       shift_collections
-
-      # 曜日や月は文字列にして追加
-      # そうでなければ数字を追加
       result = collections.inject '' do |res, collection|
         res += translate_of(collection)
         res += ", "
