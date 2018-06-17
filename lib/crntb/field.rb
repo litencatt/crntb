@@ -18,38 +18,16 @@ module Crntb
       interpretation
     end
 
-    def shift(collections)
-      collections
-    end
-
-    # 先頭文字列を処理
-    #   */...
-    #   n...
-    #   それ以降はカンマ区切りでsplitして-はloop処理しての繰り返し
     def interpretation
-      step_collections = field.split(',')
       collections = []
       step_collections.each do |step_collection|
-        step = get_step(step_collection)
-        if step[1] && step[1].match(/^[0-9]+$/)
-          step_size = step[1].to_i
-        else
-          step_size = 1
-        end
-
-        # step[0] : *   => min..max
-        # step[0] : n-m => n..m
+        step  = get_step(step_collection)
         range = get_range(step[0])
-        if range.length > 1
-          s = range[0].to_i
-          e = range[1].to_i
-          s.step(e, step_size) { |r| collections << r }
-        else
-          collections << range[0].to_i
-        end
+        add_collections(step, range, collections)
       end
       collections.uniq.sort
       shift(collections)
+
       # 曜日や月は文字列にして追加
       # そうでなければ数字を追加
       result = collections.inject '' do |res, collection|
@@ -60,13 +38,14 @@ module Crntb
       result
     end
 
-    def get_collection
-
+    def step_collections
+      field.split(',')
     end
 
-    # e.g
-    #   "*/1"     => ["*", "1"]
-    #   "*/1,2-4" => ["*", "1,2-4"]
+    def get_step(value)
+      value.split('/')
+    end
+
     def get_range(value)
       if value == '*'
         [field_range.first, field_range.last]
@@ -75,32 +54,31 @@ module Crntb
       end
     end
 
-    def get_step(value)
-      value.split('/')
+    def step_size(step)
+      if step[1] && step[1].match(/^[0-9]+$/)
+        step[1].to_i
+      else
+        1
+      end
     end
 
-    def expand_range(collections)
-      result = []
-      collections.each do |collection|
-        if collection.include?('-')
-          min, max = collection.split('-', 2)
-          for i in min..max do
-            result << i
-          end
-        else
-          result << collection
-        end
+    def add_collections(step, range, collections)
+      if range.length > 1
+        s = range[0].to_i
+        e = range[1].to_i
+        s.step(e, step_size(step)) { |r| collections << r }
+      else
+        collections << range[0].to_i
       end
+      collections
+    end
+
+    def shift(collections)
+      collections
     end
 
     def first_to_last?
       field == '*'
-    end
-
-    def range_time?
-    end
-
-    def every_time?
     end
 
     private
