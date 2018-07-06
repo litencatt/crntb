@@ -1,6 +1,7 @@
 module Crntb
   class Field
     attr_reader :field, :collections
+    SEPARATOR = ', '.freeze
 
     def self.parse(field)
       self.new(field).parse
@@ -27,15 +28,10 @@ module Crntb
       end
       collections.uniq.sort
       result = collections.inject '' do |res, collection|
-        res += translate_of(collection)
-        res += ", "
+        res += collection.to_s + SEPARATOR
       end
       result.slice!(result.size - 2, 2)
       result
-    end
-
-    def translate_of(collection)
-      collection.to_s
     end
 
     def step_collections
