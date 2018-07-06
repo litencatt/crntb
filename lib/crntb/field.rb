@@ -18,6 +18,8 @@ module Crntb
     end
 
     def interpretation
+      return nil if step_collections.size == 0
+
       step_collections.each do |step_collection|
         step  = get_step(step_collection)
         range = get_range(step[0])
