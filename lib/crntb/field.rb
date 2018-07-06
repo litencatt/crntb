@@ -64,26 +64,15 @@ module Crntb
       end
     end
 
-    def first_to_last?
-      field == '*'
     end
 
-    private
 
-    def have_asterisk?
-      field.include?('*')
     end
 
-    def have_hyphen?
-      field.include?('-')
     end
 
-    def have_slash?
-      field.include?('/')
     end
 
-    def have_comma?
-      field.include?(',')
     end
   end
 
