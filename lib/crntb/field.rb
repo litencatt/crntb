@@ -26,7 +26,6 @@ module Crntb
         add_collections(step, range)
       end
       collections.uniq.sort
-      shift_collections
       result = collections.inject '' do |res, collection|
         res += translate_of(collection)
         res += ", "
@@ -71,10 +70,6 @@ module Crntb
       else
         1
       end
-    end
-
-    def shift_collections
-      collections
     end
 
     def first_to_last?
