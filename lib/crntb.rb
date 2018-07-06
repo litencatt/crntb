@@ -1,4 +1,5 @@
 require 'crntb/file'
+require 'crntb/line'
 require 'crntb/field'
 
 module Crntb
