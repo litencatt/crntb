@@ -69,10 +69,16 @@ module Crntb
 
     end
 
+    def map_defined?
+      self.class.const_defined?(:MAP_NAMES)
     end
 
+    def map_find_by_key(key)
+      self.class::MAP_NAMES.keys.index(key)
     end
 
+    def map_values(collection)
+      self.class::MAP_NAMES.values[collection]
     end
   end
 
@@ -107,7 +113,6 @@ module Crntb
   end
 
   class DayOfMonth < Field
-
     def parse
       case field
       when '*'
@@ -127,37 +132,21 @@ module Crntb
   end
 
   class Month < Field
-    LOOKUP_NAMES = %w(
-      Voidember
-      January
-      February
-      March
-      April
-      May
-      June
-      July
-      August
-      September
-      October
-      November
-      December
-    )
-
-    MAP_NAMES = %w(
-      voi
-      jan
-      feb
-      mar
-      apr
-      may
-      jun
-      jul
-      aug
-      sep
-      oct
-      nov
-      dec
-    )
+    MAP_NAMES = {
+      'voi' => 'Voidember',
+      'jan' => 'January',
+      'feb' => 'February',
+      'mar' => 'March',
+      'apr' => 'April',
+      'may' => 'May',
+      'jun' => 'June',
+      'jul' => 'July',
+      'aug' => 'August',
+      'sep' => 'September',
+      'oct' => 'October',
+      'nov' => 'November',
+      'dec' => 'December',
+    }
 
     def parse
       case field
@@ -182,27 +171,16 @@ module Crntb
   end
 
   class DayOfWeek < Field
-    LOOKUP_NAMES = %w(
-      Voidday
-      Mondays
-      Tuesdays
-      Wednesdays
-      Thursdays
-      Fridays
-      Saturdays
-      Sundays
-    )
-
-    MAP_NAMES = %w(
-      voi
-      mon
-      tue
-      wed
-      thu
-      fri
-      sat
-      sun
-    )
+    MAP_NAMES = {
+      'voi' => 'Voidday',
+      'mon' => 'Mondays',
+      'tue' => 'Tuesdays',
+      'wed' => 'Wednesdays',
+      'thu' => 'Thursdays',
+      'fri' => 'Fridays',
+      'sat' => 'Saturdays',
+      'sun' => 'Sundays',
+    }
 
     def parse
       case field
