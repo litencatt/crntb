@@ -65,6 +65,9 @@ module Crntb
       end
     end
 
+    # e.g
+    #     1   -> 1
+    #   'mon' -> 1
     def lookupValue(range)
       if map_defined? && !number?(range.to_s)
         map_find_by_key(range)
@@ -77,6 +80,7 @@ module Crntb
       s.match(/^\d+$/)
     end
 
+    # e.g 1 -> 'Mondays'
     def translation_of(collection)
       if map_defined?
         map_values(collection)
