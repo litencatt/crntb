@@ -23,7 +23,7 @@ module Crntb
 
       collections.uniq.sort
       result = collections.inject '' do |res, collection|
-        res += collection.to_s + SEPARATOR
+        res += translation_of(collection) + SEPARATOR
       end
       result.slice!(result.size - 2, 2)
 
@@ -77,6 +77,12 @@ module Crntb
       return s.match(/^\d+$/)
     end
 
+    def translation_of(collection)
+      if map_defined?
+        map_values(collection)
+      else
+        collection.to_s
+      end
     end
 
     def map_defined?
