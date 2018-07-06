@@ -141,10 +141,6 @@ module Crntb
     def field_range
       1..31
     end
-
-    def shift_collections
-      collections.delete(0) if collections.include?(0)
-    end
   end
 
   class Month < Field
@@ -177,10 +173,6 @@ module Crntb
       1..12
     end
 
-    def shift_collections
-      collections.delete(0) if collections.include?(0)
-    end
-
     def translate_of(collection)
       LOOKUP_NAMES[collection]
     end
@@ -209,10 +201,6 @@ module Crntb
 
     def field_range
       1..7
-    end
-
-    def shift_collections
-      collections.delete(0) if collections.include?(0)
     end
 
     def translate_of(collection)
