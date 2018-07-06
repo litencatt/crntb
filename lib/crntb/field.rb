@@ -139,7 +139,7 @@ module Crntb
     end
 
     def field_range
-      0..31
+      1..31
     end
 
     def shift_collections
@@ -174,7 +174,7 @@ module Crntb
     end
 
     def field_range
-      0..12
+      1..12
     end
 
     def shift_collections
@@ -208,7 +208,7 @@ module Crntb
     end
 
     def field_range
-      0..7
+      1..7
     end
 
     def shift_collections

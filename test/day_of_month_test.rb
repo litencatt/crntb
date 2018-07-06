@@ -3,7 +3,7 @@ require 'test_helper'
 class DayOfDayOfMonthTest < Minitest::Test
   def test_field_range
     result = Crntb::DayOfMonth.new('*').field_range
-    assert_equal result, 0..31
+    assert_equal result, 1..31
   end
 
   def test_parse

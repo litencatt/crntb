@@ -3,7 +3,7 @@ require 'test_helper'
 class DayOfWeekTest < Minitest::Test
   def test_field_range
     result = Crntb::DayOfWeek.new('*').field_range
-    assert_equal result, 0..7
+    assert_equal result, 1..7
   end
 
   def test_parse
