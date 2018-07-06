@@ -8,6 +8,6 @@ module Crntb
   end
 
   def self.parse_line(line)
-    Crntb::Line.new(line).parse
+    Crntb::Line.parse(line)
   end
 end

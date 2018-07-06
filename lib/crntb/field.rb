@@ -2,10 +2,8 @@ module Crntb
   class Field
     attr_reader :field, :collections
 
-    class << self
-      def parse(field)
-        self.new(field).parse
-      end
+    def self.parse(field)
+      self.new(field).parse
     end
 
     def initialize(field)
