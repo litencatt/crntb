@@ -46,13 +46,14 @@ module Crntb
       end
     end
 
+    # mon -> 1にして追加
     def add_collections(step, range)
       if range.length > 1
-        s = range[0].to_i
-        e = range[1].to_i
+        s = lookupValue(range[0])
+        e = lookupValue(range[1])
         s.step(e, step_size(step)) { |r| collections << r }
       else
-        collections << range[0].to_i
+        collections << lookupValue(range[0])
       end
     end
 
@@ -64,8 +65,17 @@ module Crntb
       end
     end
 
+    def lookupValue(range)
+      if map_defined? && !number?(range)
+        map_find_by_key(range)
+      else
+        range.to_i
+      end
     end
 
+    def number?(s)
+      return s.match(/^\d+$/)
+    end
 
     end
 
