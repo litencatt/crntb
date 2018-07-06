@@ -25,4 +25,10 @@ class DayOfWeekTest < Minitest::Test
     result = Crntb::DayOfWeek.new('mon-wed').parse
     assert_equal result, "Mondays, Tuesdays, Wednesdays"
   end
+
+  def test_wrong_name
+    # typo wed -> wen
+    result = Crntb::DayOfWeek.new('mon,tue,wen').parse
+    assert_equal result, "Mondays, Tuesdays"
+  end
 end

@@ -20,7 +20,7 @@ module Crntb
         range = get_range(step[0])
         add_collections(step, range)
       end
-
+      collections.compact! # remove nil element
       collections.uniq.sort
       result = collections.inject '' do |res, collection|
         res += translation_of(collection) + SEPARATOR

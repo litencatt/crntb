@@ -25,4 +25,9 @@ class DayOfMonthTest < Minitest::Test
     result = Crntb::Month.new('jun-sep').parse
     assert_equal result, "June, July, August, September"
   end
+
+  def test_wrong_name
+    result = Crntb::Month.new('jan,fev').parse
+    assert_equal result, "January"
+  end
 end
