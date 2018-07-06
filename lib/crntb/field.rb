@@ -66,7 +66,7 @@ module Crntb
     end
 
     def lookupValue(range)
-      if map_defined? && !number?(range)
+      if map_defined? && !number?(range.to_s)
         map_find_by_key(range)
       else
         range.to_i
@@ -74,7 +74,7 @@ module Crntb
     end
 
     def number?(s)
-      return s.match(/^\d+$/)
+      s.match(/^\d+$/)
     end
 
     def translation_of(collection)
