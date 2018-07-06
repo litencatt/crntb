@@ -12,12 +12,6 @@ module Crntb
       @collections = []
     end
 
-    def parse
-      #return nil unless valid?
-      return '*' if first_to_last?
-      interpretation
-    end
-
     def interpretation
       return nil if step_collections.size == 0
 
@@ -26,11 +20,13 @@ module Crntb
         range = get_range(step[0])
         add_collections(step, range)
       end
+
       collections.uniq.sort
       result = collections.inject '' do |res, collection|
         res += collection.to_s + SEPARATOR
       end
       result.slice!(result.size - 2, 2)
+
       result
     end
 
