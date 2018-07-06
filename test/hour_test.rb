@@ -11,12 +11,12 @@ class HourTest < Minitest::Test
     assert_equal result, "every hour"
 
     result = Crntb::Hour.new('1,2,3').parse
-    assert_equal result, "at 1, 2, 3"
+    assert_equal result, "1, 2, 3"
 
     result = Crntb::Hour.new('10-13').parse
-    assert_equal result, "at 10, 11, 12, 13"
+    assert_equal result, "10, 11, 12, 13"
 
     result = Crntb::Hour.new('*/6').parse
-    assert_equal result, "at 0, 6, 12, 18"
+    assert_equal result, "0, 6, 12, 18"
   end
 end

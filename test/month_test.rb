@@ -8,15 +8,21 @@ class DayOfMonthTest < Minitest::Test
 
   def test_parse
     result = Crntb::Month.new('*').parse
-    assert_equal result, "every day"
+    assert_equal result, "*"
 
     result = Crntb::Month.new('1,2,3').parse
-    assert_equal result, "In January, February, March"
+    assert_equal result, "January, February, March"
 
     result = Crntb::Month.new('8-10').parse
-    assert_equal result, "In August, September, October"
+    assert_equal result, "August, September, October"
 
     result = Crntb::Month.new('*/3').parse
-    assert_equal result, "In March, June, September, December"
+    assert_equal result, "January, April, July, October"
+
+    result = Crntb::Month.new('jan').parse
+    assert_equal result, "January"
+
+    result = Crntb::Month.new('jun-sep').parse
+    assert_equal result, "June, July, August, September"
   end
 end
