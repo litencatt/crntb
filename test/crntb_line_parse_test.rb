@@ -48,6 +48,19 @@ class LineParseTest < Minitest::Test
     assert_equal result, "every month on the 5th, 10th on every hour on every minute\n  run command foo.sh"
   end
 
-  def test_month_test; end
-  def test_day_of_week_test; end
+  def test_month_parse
+    result = Crntb.parse_line('* * * 10 * foo.sh')
+    assert_equal result, "in October, on every day on every hour on every minute\n  run command foo.sh"
+
+    result = Crntb.parse_line('* * * */10 * foo.sh')
+    assert_equal result, "in January, November, on every day on every hour on every minute\n  run command foo.sh"
+
+    result = Crntb.parse_line('* * * 5-10 * foo.sh')
+    assert_equal result, "in May, June, July, August, September, October, on every day on every hour on every minute\n  run command foo.sh"
+
+    result = Crntb.parse_line('* * * 5,10 * foo.sh')
+    assert_equal result, "in May, October, on every day on every hour on every minute\n  run command foo.sh"
+  end
+
+  def test_day_of_week_parse; end
 end
