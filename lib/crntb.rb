@@ -4,7 +4,7 @@ require 'crntb/field'
 
 module Crntb
   def self.parse(file)
-    Crntb::File.parse(file)
+    ::File.readlines(file).map{ |line| Crntb::Line.parse(line.chomp!) }
   end
 
   def self.parse_line(line)

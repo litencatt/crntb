@@ -1,1 +1,8 @@
-* * * * *          sample.sh
+0 8,10,12,14,16,18 * * * php emptyTrash.php > log.txt
+1-6,9,32 * * * * echo "sample me good" > /etc/tmp/trash.txt
+* 4 * * * /etc/init.d/apache2 restart
+* * 3-4 1,4,5 * /etc/init.d/apache2 restart
+* * 3,5 12 1,5,6 /etc/init.d/apache2 restart
+10 4 1 * * /root/scripts/backup.sh
+30 3 * * mon cat /proc/meminfo >> /tmp/meminfo
+* * * * * top > test.txt
