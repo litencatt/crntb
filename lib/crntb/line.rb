@@ -84,7 +84,7 @@ module Crntb
         end
       end
 
-      "#{result}\n  run command #{command}"
+      %Q{#{result}\n  run command "#{command}"}
     end
   end
 end
