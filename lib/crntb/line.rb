@@ -27,16 +27,16 @@ module Crntb
         days.each do |day|
           case day.to_i
           when 1
-            result += "#{day}st, "
+            result += "#{day}st,"
           when 2
-            result += "#{day}nd, "
+            result += "#{day}nd,"
           when 3
-            result += "#{day}rd, "
+            result += "#{day}rd,"
           else
-            result += "#{day}th, "
+            result += "#{day}th,"
           end
         end
-        result.slice!(result.size - 2, 2)
+        result.slice!(result.size - 1, 1)
         result += ' '
       end
       if day_of_week != '*'

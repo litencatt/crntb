@@ -1,7 +1,7 @@
 module Crntb
   class Field
     attr_reader :field, :collections
-    SEPARATOR = ','.freeze
+    SEPARATOR = ', '.freeze
 
     def self.parse(field)
       self.new(field).parse
@@ -24,7 +24,7 @@ module Crntb
       result = collections.inject '' do |res, collection|
         res += translation_of(collection) + SEPARATOR
       end
-      result.slice!(result.size - 1, 1)
+      result.slice!(result.size - 2, 2)
 
       result
     end
