@@ -1,4 +1,6 @@
-WIP project now.
+Inspired by http://crontab.homecoded.com/
+
+Translate crontab lines to human readable.
 
 ### Usage
 Passing crontab strings
