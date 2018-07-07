@@ -1,7 +1,7 @@
 module Crntb
   class Field
     attr_reader :field, :collections
-    SEPARATOR = ', '.freeze
+    SEPARATOR = ','.freeze
 
     def self.parse(field)
       self.new(field).parse
@@ -14,7 +14,6 @@ module Crntb
 
     def interpretation
       return nil if step_collections.size == 0
-
       step_collections.each do |step_collection|
         step  = get_step(step_collection)
         range = get_range(step[0])
@@ -25,7 +24,7 @@ module Crntb
       result = collections.inject '' do |res, collection|
         res += translation_of(collection) + SEPARATOR
       end
-      result.slice!(result.size - 2, 2)
+      result.slice!(result.size - 1, 1)
 
       result
     end

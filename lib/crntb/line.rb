@@ -15,7 +15,7 @@ module Crntb
         result += "in #{month}, on "
       end
       if month == '*' and day_of_month != '*'
-        result += "every month on"
+        result += "every month on "
       end
       if day_of_month == '*'
         if day_of_week == '*'
@@ -25,7 +25,7 @@ module Crntb
         result += "the "
         days = day_of_month.split(',')
         days.each do |day|
-          case day
+          case day.to_i
           when 1
             result += "#{day}st, "
           when 2
