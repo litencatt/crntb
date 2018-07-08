@@ -1,6 +1,21 @@
 module Crntb
+  class Fields
+    attr_reader :minute, :hour, :day_of_month, :month, :day_of_week, :command
+
+    def initialize(line)
+      fields        = line.split(' ', 6)
+      @minute       = Minute.parse(fields[0])
+      @hour         = Hour.parse(fields[1])
+      @day_of_month = DayOfMonth.parse(fields[2])
+      @month        = Month.parse(fields[3])
+      @day_of_week  = DayOfWeek.parse(fields[4])
+      @command      = fields[5].chomp
+    end
+  end
+
   class Field
     attr_reader :field, :collections
+
     SEPARATOR = ', '.freeze
 
     def self.parse(field)
@@ -10,6 +25,15 @@ module Crntb
     def initialize(field)
       @field = field
       @collections = []
+    end
+
+    def parse
+      case field
+      when '*'
+        asterisk_result
+      else
+        interpretation
+      end
     end
 
     def interpretation
@@ -28,6 +52,8 @@ module Crntb
 
       result
     end
+
+    private
 
     def step_collections
       field.split(',')
@@ -102,13 +128,8 @@ module Crntb
   end
 
   class Minute < Field
-    def parse
-      case field
-      when '*'
-        "every minute"
-      else
-        interpretation
-      end
+    def asterisk_result
+      "every minute"
     end
 
     def field_range
@@ -117,13 +138,8 @@ module Crntb
   end
 
   class Hour < Field
-    def parse
-      case field
-      when '*'
-        "every hour"
-      else
-        interpretation
-      end
+    def asterisk_result
+      "every hour"
     end
 
     def field_range
@@ -132,13 +148,8 @@ module Crntb
   end
 
   class DayOfMonth < Field
-    def parse
-      case field
-      when '*'
-        "*"
-      else
-        interpretation
-      end
+    def asterisk_result
+      "*"
     end
 
     def field_range
@@ -163,13 +174,8 @@ module Crntb
       'dec' => 'December',
     }
 
-    def parse
-      case field
-      when '*'
-        "*"
-      else
-        interpretation
-      end
+    def asterisk_result
+      "*"
     end
 
     def field_range
@@ -193,13 +199,8 @@ module Crntb
       'sun' => 'Sundays',
     }
 
-    def parse
-      case field
-      when '*'
-        "*"
-      else
-        interpretation
-      end
+    def asterisk_result
+      "*"
     end
 
     def field_range
