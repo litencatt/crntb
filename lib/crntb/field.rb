@@ -29,6 +29,8 @@ module Crntb
       result
     end
 
+    private
+
     def step_collections
       field.split(',')
     end
