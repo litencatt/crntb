@@ -1,29 +1,22 @@
 module Crntb
   class Line
-
     def self.parse(line)
-      fields = line.split(' ', 6)
-      minute       = Minute.parse(fields[0])
-      hour         = Hour.parse(fields[1])
-      day_of_month = DayOfMonth.parse(fields[2])
-      month        = Month.parse(fields[3])
-      day_of_week  = DayOfWeek.parse(fields[4])
-      command = fields[5].chomp
+      fields = Fields.new(line)
 
       result = ''
-      if month != '*'
-        result += "in #{month}, on "
+      if fields.month != '*'
+        result += "in #{fields.month}, on "
       end
-      if month == '*' and day_of_month != '*'
+      if fields.month == '*' and fields.day_of_month != '*'
         result += "every month on "
       end
-      if day_of_month == '*'
-        if day_of_week == '*'
+      if fields.day_of_month == '*'
+        if fields.day_of_week == '*'
           result += 'every day '
         end
       else
         result += "the "
-        days = day_of_month.split(',')
+        days = fields.day_of_month.split(',')
         days.each do |day|
           case day.to_i
           when 1
@@ -39,13 +32,13 @@ module Crntb
         result.slice!(result.size - 1, 1)
         result += ' '
       end
-      if day_of_week != '*'
-        result += 'and on ' if day_of_month != '*'
-        result += day_of_week + ' '
+      if fields.day_of_week != '*'
+        result += 'and on ' if fields.day_of_month != '*'
+        result += fields.day_of_week + ' '
       end
 
-      hour_collections = hour.split(',')
-      min_collections = minute.split(',')
+      hour_collections = fields.hour.split(',')
+      min_collections = fields.minute.split(',')
       if hour_collections.length > 1 or hour_collections[0].to_i.to_s == hour_collections[0]
         # input exp. ["1,2"]
         if min_collections.length > 1 or min_collections[0].to_i.to_s == min_collections[0]
@@ -57,7 +50,7 @@ module Crntb
           end
           result.slice!(result.size - 2, 2)
         else
-          result += "on #{minute} when hour is ("
+          result += "on #{fields.minute} when hour is ("
           hour_collections.each do |hour_collection|
             result += "%#02d" % hour_collection + ', '
           end
@@ -67,24 +60,24 @@ module Crntb
       else
         # input exp. ["every hour"]
         if min_collections.length > 1
-          result += "on #{hour} when minute equals one of ("
+          result += "on #{fields.hour} when minute equals one of ("
           min_collections.each do |min_collection|
             result += "%#02d" % min_collection + ', '
           end
           result.slice!(result.size - 2, 2)
           result += ')'
         else
-          if hour.to_i.to_s == hour and minute.to_i.to_s == minute
-            result += "on #{hour}:#{minute}"
-          elsif minute.to_i.to_s == minute
-            result += "on #{hour} when minute equals " + "%#02d" % minute
+          if fields.hour.to_i.to_s == fields.hour and fields.minute.to_i.to_s == fields.minute
+            result += "on #{fields.hour}:#{fields.minute}"
+          elsif fields.minute.to_i.to_s == fields.minute
+            result += "on #{fields.hour} when minute equals " + "%#02d" % fields.minute
           else
-            result += "on #{hour} on #{minute}"
+            result += "on #{fields.hour} on #{fields.minute}"
           end
         end
       end
 
-      %Q{#{result}\n  run command "#{command}"}
+      %Q{#{result}\n  run command "#{fields.command}"}
     end
   end
 end
