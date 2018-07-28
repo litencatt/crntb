@@ -5,10 +5,10 @@ Translate crontab lines to human readable.
 ### Usage
 Pass crontab string
 ```rb
-[1] pry(main)> Crntb.parse_line('* * * * * test.sh')
+[1] pry(main)> Crntb.parse('* * * * * test.sh')
 => "every day on every hour on every minute\n  run command \"test.sh\""
 
-[2] pry(main)> Crntb.parse_line('*/10 * * * * test.sh')
+[2] pry(main)> Crntb.parse_file('*/10 * * * * test.sh')
 => "every day on every hour when minute equals one of (00, 10, 20, 30, 40, 50)\n  run command \"test.sh\""
 ```
 
