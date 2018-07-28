@@ -1,9 +1,8 @@
 module Crntb
   class Line
-    def self.parse(line)
+    def self.parse(line, formatter: :txt)
       fields = Fields.new(line)
-      result = Outputer::Text.build(fields)
-      %Q{#{result}\n  run command "#{fields.command}"}
+      Outputer::Text.build(fields)
     end
   end
 end

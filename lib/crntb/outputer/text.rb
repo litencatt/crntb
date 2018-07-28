@@ -7,11 +7,9 @@ module Crntb
         def build(fields)
           @result = ''
           @fields = fields
-
           day_week_month_result
           min_hour_result
-
-          @result
+          %Q{#{@result}\n  run command "#{fields.command}"}
         end
 
         def day_week_month_result
