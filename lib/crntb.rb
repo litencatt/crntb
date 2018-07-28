@@ -4,11 +4,11 @@ require 'crntb/field'
 require 'crntb/outputer'
 
 module Crntb
-  def self.parse(file)
-    ::File.readlines(file).map{ |line| Crntb::Line.parse(line.chomp!) }
+  def self.parse(line)
+    Crntb::Line.parse(line)
   end
 
-  def self.parse_line(line)
-    Crntb::Line.parse(line)
+  def self.parse_file(file)
+    ::File.readlines(file).map{ |line| Crntb::Line.parse(line.chomp!) }
   end
 end
