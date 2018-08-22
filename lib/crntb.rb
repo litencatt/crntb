@@ -1,4 +1,5 @@
 require 'crntb/line'
+require 'crntb/lines'
 require 'crntb/field'
 require 'crntb/outputer'
 
@@ -8,8 +9,12 @@ module Crntb
   end
 
   def self.parse_file(file)
-    ::File.readlines(file).each_with_object([]) do |line, arr|
-      arr << Crntb::Line.new(line.chomp!)
+    ::File.readlines(file).inject(Crntb::Lines.new) do |lines, line|
+      lines << Crntb::Line.new(line.chomp!)
     end
+  end
+
+  def self.sort(file)
+    parse_file(file).sort.map(&:line)
   end
 end
