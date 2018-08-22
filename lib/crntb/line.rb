@@ -5,8 +5,8 @@ module Crntb
     def initialize(line)
       return if line.empty?
 
-      @fields = Fields.new(line)
       @line = line
+      @fields = Fields.new(line)
     end
 
     def to_s
@@ -14,7 +14,17 @@ module Crntb
     end
 
     def <=>(other)
-      @fields.minute <=> other.fields.minute
+      #if fields.day_of_week.to_i != 0
+      #  fields.day_of_week <=> other.fields.day_of_week
+      #elsif fields.month.to_i != 0
+      #  fields.month <=> other.fields.month
+      if fields.day_of_month.to_i != 0
+        fields.day_of_month <=> other.fields.day_of_month
+      elsif fields.hour.to_i != 0
+        fields.hour <=> other.fields.hour
+      else
+        fields.minute <=> other.fields.minute
+      end
     end
   end
 end
