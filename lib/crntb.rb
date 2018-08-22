@@ -5,10 +5,10 @@ require 'crntb/outputer'
 
 module Crntb
   def self.parse(line)
-    Crntb::Line.parse(line)
+    Crntb::Line.new(line)
   end
 
   def self.parse_file(file)
-    ::File.readlines(file).map{ |line| Crntb::Line.parse(line.chomp!) }
+    ::File.readlines(file).map{ |line| Crntb::Line.new(line.chomp!).to_s }
   end
 end
