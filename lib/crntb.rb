@@ -8,6 +8,8 @@ module Crntb
   end
 
   def self.parse_file(file)
-    ::File.readlines(file).map{ |line| Crntb::Line.new(line.chomp!).to_s }
+    ::File.readlines(file).each_with_object([]) do |line, arr|
+      arr << Crntb::Line.new(line.chomp!)
+    end
   end
 end
