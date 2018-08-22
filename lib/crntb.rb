@@ -1,4 +1,3 @@
-require 'crntb/file'
 require 'crntb/line'
 require 'crntb/field'
 require 'crntb/outputer'
