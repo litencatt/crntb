@@ -1,10 +1,13 @@
 module Crntb
   class Line
-    def self.parse(line, formatter: :txt)
+    def initialize(line)
       return if line.empty?
 
-      fields = Fields.new(line)
-      Outputer::Text.build(fields)
+      @fields = Fields.new(line)
+    end
+
+    def to_s
+      Outputer::Text.build(@fields)
     end
   end
 end
