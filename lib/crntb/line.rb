@@ -1,6 +1,7 @@
-require 'crntb/outputer/json'
+require 'crntb/outputer/hash'
 require 'crntb/outputer/chef_cron'
 require 'crntb/outputer/whenever'
+require 'json'
 
 module Crntb
   class Line
@@ -9,8 +10,12 @@ module Crntb
       @entry = ::Crontab::Entry.parse(line)
     end
 
+    def to_h
+      Outputer::Hash.build(@entry)
+    end
+
     def to_json
-      Outputer::JSON.build(@entry)
+      to_h.to_json
     end
 
     def to_chef

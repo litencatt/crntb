@@ -1,8 +1,6 @@
-require 'json'
-
 module Crntb
   module Outputer
-    module JSON
+    module Hash
       class << self
         def build(entry)
           fields = entry.cron_definition.split(/\s/, 5)
@@ -14,7 +12,7 @@ module Crntb
             "month":        fields[3],
             "day_of_week":  fields[4],
             "command":      entry.command
-          }.to_json
+          }
         end
       end
     end
