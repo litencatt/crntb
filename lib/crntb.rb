@@ -1,5 +1,4 @@
 require 'crntb/line'
-require 'crntb/field'
 require 'crontab'
 
 module Crntb
