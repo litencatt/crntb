@@ -1,6 +1,4 @@
-require 'crntb/outputer/hash'
-require 'crntb/outputer/chef_cron'
-require 'crntb/outputer/whenever'
+require 'crntb/outputer'
 require 'json'
 
 module Crntb
@@ -11,7 +9,7 @@ module Crntb
     end
 
     def to_h
-      Outputer::Hash.build(@entry)
+      Crntb::Outputer::Hash.build(@entry)
     end
 
     def to_json
@@ -19,11 +17,11 @@ module Crntb
     end
 
     def to_chef
-      Outputer::ChefCron.build(@entry)
+      Crntb::Outputer::ChefCron.build(@entry)
     end
 
     def to_whenever
-      Outputer::Whenever.build(@entry)
+      Crntb::Outputer::Whenever.build(@entry)
     end
   end
 end
