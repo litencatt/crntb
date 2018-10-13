@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/litencatt/crontab
+  revision: 9c758a82a124f2b83a6e28ffb8cffce608f41844
+  branch: keep-cron-definition
+  specs:
+    crontab (0.0.2)
+
 PATH
   remote: .
   specs:
@@ -24,10 +31,11 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   crntb!
+  crontab!
   minitest
   pry
   pry-byebug
   rake (~> 10.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.5

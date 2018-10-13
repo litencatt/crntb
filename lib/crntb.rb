@@ -1,6 +1,5 @@
 require 'crntb/line'
-require 'crntb/field'
-require 'crntb/outputer'
+require 'crontab'
 
 module Crntb
   def self.parse(line)
