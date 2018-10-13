@@ -14,6 +14,10 @@ module Crntb
       "#{translated}, Execute \"#{@entry.command}\""
     end
 
+    def to_md
+      Crntb::Outputer::Markdown.build(@entry, to_eng)
+    end
+
     def to_h
       Crntb::Outputer::Hash.build(@entry)
     end
