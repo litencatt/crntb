@@ -16,7 +16,7 @@ module Crntb
             ### Fields
 
             | fields | minute | hour |day_of_month | month | day_of_week |
-            | --- | --- | --- | --- | --- | --- |
+            | --- | :---: | :---: | :---: | :---: | :---: |
             | value | #{fields[0]}  | #{fields[1]} | #{fields[2]} | #{fields[3]} | #{fields[4]} |
           RUBY
         end
