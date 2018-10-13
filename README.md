@@ -1,30 +1,96 @@
 Inspired by http://crontab.homecoded.com/
 
-Translate crontab lines to human readable.
+Convert crontab lines to other format.
 
 ### Usage
-Pass crontab string
+Convert a line.
 ```rb
-[1] pry(main)> Crntb.parse("* * * * * test.sh")
-=> #<Crntb::Line:0x00007fefda1eb9d8
- @fields=#<Crntb::Fields:0x00007fefda1eb9b0 @command="test.sh", @day_of_month="*", @day_of_week="*", @hour="every hour", @minute="every minute", @month="*">>
- 
-[2] pry(main)> Crntb.parse("* * * * * test.sh").to_s
-=> "every day on every hour on every minute\n  run command \"test.sh\""
+[1] pry(main)> pp Crntb.parse("* * * * * foo.sh").to_json
+{:minute=>"*",
+ :hour=>"*",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"foo.sh"}
+=> {:minute=>"*", :hour=>"*", :day_of_month=>"*", :month=>"*", :day_of_week=>"*", :command=>"foo.sh"}
 
-[3] pry(main)> Crntb.parse('*/10 * * * * test.sh')
-=> "every day on every hour when minute equals one of (00, 10, 20, 30, 40, 50)\n  run command \"test.sh\""
+[2] pry(main)> puts Crntb.parse("* * * * * foo.sh").to_chef
+cron 'exec_foo.sh' do
+  minute  "*"
+  hour    "*"
+  day     "*"
+  month   "*"
+  weekday "*"
+  command "foo.sh"
+end
+=> nil
+
+[3] pry(main)> puts Crntb.parse("* * * * * foo.sh").to_whenever
+every '* * * * *' do
+  command "foo.sh"
+end
+=> nil
 ```
 
-Pass text file
+Convert crontabs written in a file.
 ```rb
-[1] pry(main)> Crntb.parse_file('./sample.cron')
-=> ["every day at 08:00, 10:00, 12:00, 14:00, 16:00, 18:00\n  run command \"php emptyTrash.php > log.txt\"",
- "every day on every hour when minute equals one of (01, 02, 03, 04, 05, 06, 09, 32)\n  run command \"echo \"sample me good\" > /etc/tmp/trash.txt\"",
- "every day on every minute when hour is (04)\n  run command \"/etc/init.d/apache2 restart\"",
- "in January, April, May, on the 3rd, 4th on every hour on every minute\n  run command \"/etc/init.d/apache2 restart\"",
- "in December, on the 3rd, 5th and on Mondays, Fridays, Saturdays on every hour on every minute\n  run command \"/etc/init.d/apache2 restart\"",
- "every month on the 1st at 04:10\n  run command \"/root/scripts/backup.sh\"",
- "Mondays at 03:30\n  run command \"cat /proc/meminfo >> /tmp/meminfo\"",
- "every day on every hour on every minute\n  run command \"top > test.txt\""]
+[1] pry(main)> entries = Crntb.parse_file("./sample1.cron")
+
+[2] pry(main)> entries.map{|e| pp e.to_json}
+{:minute=>"0",
+ :hour=>"8,10,12,14,16,18",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"php emptyTrash.php > log.txt"}
+{:minute=>"1-6,9,32",
+ :hour=>"*",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"echo \"sample me good\" > /etc/tmp/trash.txt"}
+{:minute=>"*",
+ :hour=>"4",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"/etc/init.d/apache2 restart"}
+{:minute=>"*",
+ :hour=>"*",
+ :day_of_month=>"3-4",
+ :month=>"1,4,5",
+ :day_of_week=>"*",
+ :command=>"/etc/init.d/apache2 restart"}
+{:minute=>"*",
+ :hour=>"*",
+ :day_of_month=>"3,5",
+ :month=>"12",
+ :day_of_week=>"1,5,6",
+ :command=>"/etc/init.d/apache2 restart"}
+{:minute=>"10",
+ :hour=>"4",
+ :day_of_month=>"1",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"/root/scripts/backup.sh"}
+{:minute=>"30",
+ :hour=>"3",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"mon",
+ :command=>"cat /proc/meminfo >> /tmp/meminfo"}
+{:minute=>"*",
+ :hour=>"*",
+ :day_of_month=>"*",
+ :month=>"*",
+ :day_of_week=>"*",
+ :command=>"top > test.txt"}
+=> [{:minute=>"0", :hour=>"8,10,12,14,16,18", :day_of_month=>"*", :month=>"*", :day_of_week=>"*", :command=>"php emptyTrash.php > log.txt"},
+ {:minute=>"1-6,9,32", :hour=>"*", :day_of_month=>"*", :month=>"*", :day_of_week=>"*", :command=>"echo \"sample me good\" > /etc/tmp/trash.txt"},
+ {:minute=>"*", :hour=>"4", :day_of_month=>"*", :month=>"*", :day_of_week=>"*", :command=>"/etc/init.d/apache2 restart"},
+ {:minute=>"*", :hour=>"*", :day_of_month=>"3-4", :month=>"1,4,5", :day_of_week=>"*", :command=>"/etc/init.d/apache2 restart"},
+ {:minute=>"*", :hour=>"*", :day_of_month=>"3,5", :month=>"12", :day_of_week=>"1,5,6", :command=>"/etc/init.d/apache2 restart"},
+ {:minute=>"10", :hour=>"4", :day_of_month=>"1", :month=>"*", :day_of_week=>"*", :command=>"/root/scripts/backup.sh"},
+ {:minute=>"30", :hour=>"3", :day_of_month=>"*", :month=>"*", :day_of_week=>"mon", :command=>"cat /proc/meminfo >> /tmp/meminfo"},
+ {:minute=>"*", :hour=>"*", :day_of_month=>"*", :month=>"*", :day_of_week=>"*", :command=>"top > test.txt"}]
 ```
