@@ -2,9 +2,20 @@ Inspired by http://crontab.homecoded.com/
 
 Convert crontab lines to other format.
 
+### Install
+```
+$ git clone https://github.com/litencatt/crntb
+$ cd /path/to/crntb
+$ bundle install --path vendor/bundle
+```
+
 ### Usage
 Convert a line.
 ```rb
+$ bin/console
+[1] pry(main)> Crntb.parse("* * * * * foo.sh").to_h
+=> "{\"minute\":\"*\",\"hour\":\"*\",\"day_of_month\":\"*\",\"month\":\"*\",\"day_of_week\":\"*\",\"command\":\"foo.sh\"}"
+
 [1] pry(main)> Crntb.parse("* * * * * foo.sh").to_json
 => "{\"minute\":\"*\",\"hour\":\"*\",\"day_of_month\":\"*\",\"month\":\"*\",\"day_of_week\":\"*\",\"command\":\"foo.sh\"}"
 
@@ -28,6 +39,7 @@ end
 
 Convert crontabs written in a file.
 ```rb
+$ bin/console
 [1] pry(main)> entries = Crntb.parse_file("./sample.cron")
 
 [2] pry(main)> entries.map{|e| pp e.to_json}

@@ -1,7 +1,8 @@
-require 'crntb/outputer/text'
+require 'crntb/outputer/hash'
+require 'crntb/outputer/chef_cron'
+require 'crntb/outputer/whenever'
 
 module Crntb
   module Outputer
-    include Crntb::Outputer::Text
   end
 end
