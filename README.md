@@ -67,7 +67,24 @@ end
 => "## Summary\nevery minute of every hour of every day, Execute \"foo.sh\"\n\n### Command\n```\nfoo.sh\n```\n### Fields\n\n| fields | minute | hour |day_of_month | month | day_of_week |\n| --- | :---: | :---: | :---: | :---: | :---: |\n| value | *  | * | * | * | * |\n"
 ```
 
-Convert crontabs written in a file.
+---
+
+## Summary
+every minute of every hour of every day, Execute "foo.sh"
+
+### Command
+```
+foo.sh
+```
+### Fields
+
+| fields | minute | hour |day_of_month | month | day_of_week |
+| --- | :---: | :---: | :---: | :---: | :---: |
+| value | *  | * | * | * | * |
+
+---
+
+### Convert crontabs written in a file.
 ```rb
 $ bin/console
 [1] pry(main)> Crntb.parse_file("./sample.cron").map{|e| pp e.to_json }
